@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-1'
+  app: 'elk'
+  env: 'Elk-env'
+  bucket_name: 'elasticbeanstalk-us-east-1-560246381809'
+  bucket_path: 'elk'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

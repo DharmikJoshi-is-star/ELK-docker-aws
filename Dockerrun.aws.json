@@ -26,7 +26,8 @@
                     "containerPath": "/usr/share/elasticsearch/data",
                     "sourceVolume": "elasticsearch-data-volume"
                 }
-            ]
+            ],
+            "memory": 128
         },
 
         {
@@ -38,7 +39,8 @@
                     "containerPort": 5601,
                     "hostPort": 5601
                 }
-            ]
+            ],
+            
         },
 
         {
@@ -56,7 +58,8 @@
                     "containerPort": 5044,
                     "hostPort": 5044
                 }
-            ]
+            ],
+           
         }
     ],
 
