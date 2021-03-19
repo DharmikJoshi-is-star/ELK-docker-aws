@@ -1,0 +1,77 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {  
+            "environment": [
+                {
+                    "name": "bootstrap.memory_lock",
+                    "value": "true"
+                },
+                {
+                    "name": "discovery.type",
+                    "value": "single-node"
+                }
+            ],
+            "essential": true,
+            "image": "elasticsearch:7.11.1",
+            "name": "elasticsearch",
+            "portMappings": [
+                {
+                    "containerPort": 9200,
+                    "hostPort": 9200
+                }
+            ],
+            "mountPoints": [
+                {
+                    "containerPath": "/usr/share/elasticsearch/data",
+                    "sourceVolume": "elasticsearch-data-volume"
+                }
+            ]
+        },
+
+        {
+            "essential": false,
+            "image": "kibana:7.11.1",
+            "name": "kibana",
+            "portMappings": [
+                {
+                    "containerPort": 5601,
+                    "hostPort": 5601
+                }
+            ]
+        },
+
+        {
+            "essential": false,
+            "image": "logstash:7.11.1",
+            "name": "logstash",
+            "mountPoints": [
+                {
+                    "containerPath": "/usr/share/logstash/pipeline/logstash.conf",
+                    "sourceVolume": "_Logstash_Conf"
+                }
+            ],
+            "portMappings": [
+                {
+                    "containerPort": 5044,
+                    "hostPort": 5044
+                }
+            ]
+        }
+    ],
+
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "./logstash"
+            },
+            "name": "_Logstash_Conf"
+        },
+        {
+            "dockerVolumeConfiguration": {
+                "driver": "local"
+            },
+            "name": "elasticsearch-data-volume"
+        }
+    ]
+}
